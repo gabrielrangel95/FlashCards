@@ -44,6 +44,35 @@ export function* getDecks(action) {
       yield put(DecksActions.getDecksSuccess(initialCards))
     }
   } catch (error) {
-    yield put(DecksActions.getDecksFailure(initialCards))
+    yield put(DecksActions.getDecksFailure(error))
   }
 }
+
+export function* selectDeck(action) {
+  try {
+    const { deck } = action.payload
+    yield put(DecksActions.selectDeckSuccess(deck))
+
+  } catch (error) {
+    yield put(DecksActions.selectDeckFailure(error))
+  }
+}
+
+export function* createDeck(action) {
+  try {
+    const { title } = action.payload
+    const value = yield AsyncStorage.getItem('@FlashCards:CardsList');
+    const decks =  JSON.parse(value);
+    decks.push({
+      id: uuidv1(),
+      title: title,
+      questions: []
+    })
+    yield AsyncStorage.setItem('@FlashCards:CardsList', JSON.stringify(decks));
+    yield put(DecksActions.createDeckSuccess());
+    yield put(DecksActions.getDecksRequest()) //atualize decks after add
+  } catch (error) {
+    yield put(DecksActions.createDeckFailure())
+  }
+}
+

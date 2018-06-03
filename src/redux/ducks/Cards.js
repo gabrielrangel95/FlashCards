@@ -7,7 +7,6 @@ export const Types = {
 };
 
 const initialState = {
-  data: [],
   loading: false,
   error: null,
   createCardModalVisible: false,

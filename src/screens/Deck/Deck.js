@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Creators as DecksActions} from '../../redux/ducks/Decks'
 import { Creators as CardActions } from '../../redux/ducks/Cards';
+import { Creators as QuizActions } from '../../redux/ducks/Quiz';
 import { Button, ModalCreateCard } from '../../components';
 import {
   Container,
@@ -21,6 +22,12 @@ class Deck extends Component {
     title: 'Deck'
   };
 
+  startQuiz = () => {
+    const { selected } = this.props.decks;
+    this.props.setQuizQuestions(selected.questions);
+    //navegar
+  }
+
 
   render() {
     const { selected } = this.props.decks;
@@ -35,7 +42,7 @@ class Deck extends Component {
             <Button text="Add card" onPress={()=>{this.props.openCardsModal()}} />
           </ButtonView>
           <ButtonView>
-            <Button text="Start Quiz" secondary />
+            <Button text="Start Quiz" secondary onPress={()=> this.startQuiz()} />
           </ButtonView>
         </DeckCard>
       </Container>
@@ -52,7 +59,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = (dispatch) => {
   const boundDecksCreators = bindActionCreators(DecksActions, dispatch);
   const boundCardsCreators = bindActionCreators(CardActions, dispatch);
-  const allActionProps = { ...boundDecksCreators, ...boundCardsCreators, dispatch };
+  const boundQuizCreators = bindActionCreators(QuizActions, dispatch)
+  const allActionProps = { ...boundDecksCreators, ...boundCardsCreators, ...boundQuizCreators, dispatch };
   return allActionProps;
 };
 

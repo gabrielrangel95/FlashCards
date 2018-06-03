@@ -22,10 +22,13 @@ class Deck extends Component {
     title: 'Deck'
   };
 
-  startQuiz = () => {
+  startQuiz = async () => {
     const { selected } = this.props.decks;
-    this.props.setQuizQuestions(selected.questions);
-    //navegar
+    //setup quiz
+    await this.props.restarQuiz()
+    await this.props.setQuizQuestions(selected.questions);
+    await this.props.setQuizCurrentQuestion(selected.questions[0]);
+    this.props.navigation.navigate('Quiz')
   }
 
 

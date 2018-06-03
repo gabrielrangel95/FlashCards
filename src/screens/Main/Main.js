@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { FlatList, View, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { MaterialIcons } from '@expo/vector-icons'
 import { Creators as DecksActions} from '../../redux/ducks/Decks'
 import { ModalCreateDeck, HeaderIcon } from '../../components';
 import {
@@ -14,30 +13,30 @@ import {
   CardSubView,
 } from './MainStyle';
 
-
 const cardsLogo = require('../../resources/cardslogo.png');
 
 class Main extends Component {
   static navigationOptions = {
     title: 'Flash Cards',
-    headerRight: (<HeaderIcon/>)
+    headerRight: <HeaderIcon/>
 
   };
-
-  state = {
-    modalVisible: false,
-  }
 
   async componentDidMount(){
     await this.props.getDecksRequest()
   }
 
+  handleDeckPress = (item) => {
+    this.props.selectDeckRequest(item);
+    this.props.navigation.navigate('Deck')
+  }
+
   renderItem = ({item}) => {
     return(
-      <CardItem>
+      <CardItem onPress={()=> this.handleDeckPress(item)}>
         <CardImage source={cardsLogo}/>
         <CardSubView>
-          <CardTitle>{item.title}</CardTitle>
+          <CardTitle onPress={()=> this.handleDeckPress(item)}>{item.title}</CardTitle>
           <CardSubTitle>{item.questions.length} card(s)</CardSubTitle>
         </CardSubView>
       </CardItem>
@@ -48,10 +47,7 @@ class Main extends Component {
     const { data } = this.props.decks;
     return (
       <Container>
-        <ModalCreateDeck
-          modalVisible={this.state.modalVisible}
-          closeModal={this.closeModal}
-        />
+        <ModalCreateDeck />
         <FlatList
           keyExtractor={item => item.title}
           data={data}

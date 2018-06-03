@@ -17,9 +17,6 @@ class ModalCreateDeck extends Component {
     loading: false,
   }
 
-  async componentDidMount(){
-    console.log(this.props)
-  }
 
   handleCreatePress = async () => {
     const { title } = this.state;

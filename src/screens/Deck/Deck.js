@@ -3,9 +3,14 @@ import { Text } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Creators as DecksActions} from '../../redux/ducks/Decks'
-
+import { Button } from '../../components';
 import {
-  Container
+  Container,
+  DeckCard,
+  DeckImage,
+  DeckTitle,
+  DeckSubTitle,
+  ButtonView
 } from './DeckStyle';
 
 const cardsLogo = require('../../resources/cardslogo.png');
@@ -24,7 +29,17 @@ class Deck extends Component {
     console.log(selected)
     return (
       <Container>
-        <Text>Current Deck: {selected.title}</Text>
+        <DeckCard>
+          <DeckImage source={cardsLogo} />
+          <DeckTitle>{selected.title}</DeckTitle>
+          <DeckSubTitle>{selected.questions.length} card(s)</DeckSubTitle>
+          <ButtonView>
+            <Button text="Add card" />
+          </ButtonView>
+          <ButtonView>
+            <Button text="Start Quiz" secondary />
+          </ButtonView>
+        </DeckCard>
       </Container>
     );
   }

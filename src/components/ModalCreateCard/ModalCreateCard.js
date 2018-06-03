@@ -19,10 +19,6 @@ class ModalCreateCard extends Component {
   }
 
 
-  async componentDidMount(){
-    console.log(this.props)
-  }
-
 
   handleCreatePress = async () => {
     const { question, answer } = this.state;
@@ -48,6 +44,7 @@ class ModalCreateCard extends Component {
 
   render() {
     const { createCardModalVisible } = this.props
+
     return (
       <Modal
         animationType="slide"

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { FlatList, View, Text } from 'react-native';
-import * as services  from '../../services/AsyncStorage';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Creators as DecksActions} from '../../redux/ducks/Decks'
 import {
   Container,
   CardItem,
@@ -17,15 +19,9 @@ class Main extends Component {
     title: 'Flash Cards',
   };
 
-  state = {
-    cards: [],
-
-  }
-
   async componentDidMount(){
-    const cards = await services.getCardsList();
-    console.log(cards);
-    this.setState({ cards });
+    console.log(this.props)
+    await this.props.getDecksRequest()
   }
 
   renderItem = ({item}) => {
@@ -41,12 +37,12 @@ class Main extends Component {
   }
 
   render() {
-    const { cards } = this.state;
+    const { data } = this.props.decks;
     return (
       <Container>
         <FlatList
           keyExtractor={item => item.title}
-          data={cards}
+          data={data}
           renderItem={this.renderItem}
         />
       </Container>
@@ -54,5 +50,13 @@ class Main extends Component {
   }
 }
 
-export { Main };
+const mapStateToProps = state => ({
+  decks: state.decks,
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(DecksActions, dispatch);
+
+const MainConnect = connect(mapStateToProps, mapDispatchToProps)(Main);
+export { MainConnect as Main };
 

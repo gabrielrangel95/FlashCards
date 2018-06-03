@@ -1,7 +1,11 @@
+import { call, put } from 'redux-saga/effects';
 import { AsyncStorage } from 'react-native'
+import { Creators as DecksActions } from '../ducks/Decks';
 
+const uuidv1 = require('uuid/v1');
 const initialCards = [
   {
+    id: uuidv1(),
     title: 'React',
     questions: [
       {
@@ -15,6 +19,7 @@ const initialCards = [
     ]
   },
   {
+    id: uuidv1(),
     title: 'JavaScript',
     questions: [
       {
@@ -26,18 +31,19 @@ const initialCards = [
 ]
 
 
-export async function getCardsList(){
-  AsyncStorage.clear();
+export function* getDecks(action) {
   try {
-    const value = await AsyncStorage.getItem('@FlashCards:CardsList');
+    const value = yield AsyncStorage.getItem('@FlashCards:CardsList');
     if (value !== null) {
       const cards =  JSON.parse(value);
-      return cardsArray;
+      console.log(cards)
+      yield put(DecksActions.getDecksSuccess(cards))
     }else{
-      await AsyncStorage.setItem('@FlashCards:CardsList', JSON.stringify(initialCards));
-      return initialCards;
+      yield AsyncStorage.setItem('@FlashCards:CardsList', JSON.stringify(initialCards));
+      console.log(initialCards)
+      yield put(DecksActions.getDecksSuccess(initialCards))
     }
   } catch (error) {
-    return error;
+    yield put(DecksActions.getDecksFailure(initialCards))
   }
 }

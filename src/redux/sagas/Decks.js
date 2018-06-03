@@ -36,7 +36,6 @@ export function* getDecks(action) {
     const value = yield AsyncStorage.getItem('@FlashCards:CardsList');
     if (value !== null) {
       const cards =  JSON.parse(value);
-      console.log(cards)
       yield put(DecksActions.getDecksSuccess(cards))
     }else{
       yield AsyncStorage.setItem('@FlashCards:CardsList', JSON.stringify(initialCards));

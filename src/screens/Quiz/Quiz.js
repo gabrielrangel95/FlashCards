@@ -18,6 +18,7 @@ import {
   TextAswer,
   FinishButtonView
 } from './QuizStyle'
+import { clearNotifications } from '../../services/notification';
 
 class Quiz extends Component {
   state = {
@@ -52,6 +53,7 @@ class Quiz extends Component {
       finalScore = finalScore.toFixed(2);
       console.log(finalScore);
       await this.setState({ finalScore })
+      clearNotifications()
     }
 
   }

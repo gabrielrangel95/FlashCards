@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^6.3.1",
+    "dayjs": "^1.6.5",
     "expo": "^27.0.1",
     "react": "16.3.1",
     "react-native": "~0.55.2",

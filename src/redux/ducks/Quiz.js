@@ -1,6 +1,6 @@
 export const Types = {
   SET_QUIZ_QUESTIONS: 'quiz/SET_QUIZ_QUESTIONS',
-  SET_QUIZ_FINAL_SCORE: 'quiz/SET_QUIZ_SCORE',
+  SET_QUIZ_SCORE: 'quiz/SET_QUIZ_SCORE',
   SET_QUIZ_PROGRESS: 'quiz/SET_QUIZ_PROGRESS',
   SET_CURRENT_QUESTION: 'quiz/SET_CURRENT_QUESTION',
   SHOW_ANSWER: 'quiz/SHOW_ANSWER',
@@ -10,8 +10,8 @@ export const Types = {
 
 const initialState = {
   questions: [],
-  finalScore: null,
-  progress: null,
+  score: null,
+  progress: 0,
   currentQuestion: null,
   showAnswer: false,
 };
@@ -20,8 +20,8 @@ export default function quiz(state = initialState, action) {
   switch (action.type) {
     case Types.SET_QUIZ_QUESTIONS:
       return { ...state, questions: action.payload.questions };
-    case Types.SET_QUIZ_FINAL_SCORE:
-      return { ...state, finalScore: action.payload.finalScore };
+    case Types.SET_QUIZ_SCORE:
+      return { ...state, score: action.payload.score };
     case Types.SET_QUIZ_PROGRESS:
       return { ...state, progress: action.payload.progress };
     case Types.SET_CURRENT_QUESTION:
@@ -45,10 +45,10 @@ export const Creators = {
       questions
     }
   }),
-  setQuizFinalScore: finalScore => ({
-    type: Types.SET_QUIZ_FINAL_SCORE,
+  setQuizScore: score => ({
+    type: Types.SET_QUIZ_SCORE,
     payload: {
-      finalScore
+      score
     }
   }),
   setQuizProgress: progress => ({
@@ -57,10 +57,10 @@ export const Creators = {
       progress
     }
   }),
-  setQuizCurrentQUestion: question => ({
-    type: Types.SET_QUIZ_FINAL_SCORE,
+  setQuizCurrentQuestion: currentQuestion => ({
+    type: Types.SET_CURRENT_QUESTION,
     payload: {
-      question
+      currentQuestion
     }
   }),
   showQuizAnswer: () => ({

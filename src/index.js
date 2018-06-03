@@ -5,7 +5,7 @@ import { Navigator } from './route';
 export default class App extends Component {
   render() {
     return (
-      <View>
+      <View style={{flex: 1}}>
         <StatusBar
           backgroundColor="transparent"
           barStyle="light-content"

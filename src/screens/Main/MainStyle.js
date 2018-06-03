@@ -52,5 +52,5 @@ export {
   CardImage,
   CardTitle,
   CardSubTitle,
-  CardSubView
+  CardSubView,
 }

@@ -2,22 +2,31 @@ import React, { Component } from 'react';
 import { FlatList, View, Text } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { MaterialIcons } from '@expo/vector-icons'
 import { Creators as DecksActions} from '../../redux/ducks/Decks'
+import { ModalCreateDeck, HeaderIcon } from '../../components';
 import {
   Container,
   CardItem,
   CardImage,
   CardTitle,
   CardSubTitle,
-  CardSubView
+  CardSubView,
 } from './MainStyle';
+
 
 const cardsLogo = require('../../resources/cardslogo.png');
 
 class Main extends Component {
   static navigationOptions = {
     title: 'Flash Cards',
+    headerRight: (<HeaderIcon/>)
+
   };
+
+  state = {
+    modalVisible: false,
+  }
 
   async componentDidMount(){
     console.log(this.props)
@@ -40,6 +49,10 @@ class Main extends Component {
     const { data } = this.props.decks;
     return (
       <Container>
+        {/* <ModalCreateDeck
+          modalVisible={this.state.modalVisible}
+          closeModal={this.closeModal}
+        /> */}
         <FlatList
           keyExtractor={item => item.title}
           data={data}

@@ -49,10 +49,10 @@ class Main extends Component {
     const { data } = this.props.decks;
     return (
       <Container>
-        {/* <ModalCreateDeck
+        <ModalCreateDeck
           modalVisible={this.state.modalVisible}
           closeModal={this.closeModal}
-        /> */}
+        />
         <FlatList
           keyExtractor={item => item.title}
           data={data}

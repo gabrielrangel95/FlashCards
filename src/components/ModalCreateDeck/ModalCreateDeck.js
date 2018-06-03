@@ -9,15 +9,12 @@ const cardsLogo = require('../../resources/cardslogo.png');
 class ModalCreateDeck extends Component {
 
   render() {
-    const { data } = this.props.decks;
     return (
       <Modal
       animationType="slide"
       transparent={false}
-      visible={this.props.modalVisible}
-      onRequestClose={() => {
-        alert('Modal has been closed.');
-      }}>
+      visible={this.props.createModalVisible}
+      onRequestClose={() => this.props.closeModal()}>
       <View style={{marginTop: 22}}>
         <View>
           <Text>Hello World!</Text>
@@ -33,7 +30,7 @@ class ModalCreateDeck extends Component {
 }
 
 const mapStateToProps = state => ({
-  decks: state.decks,
+  createModalVisible: state.decks.createModalVisible,
 });
 
 const mapDispatchToProps = dispatch =>

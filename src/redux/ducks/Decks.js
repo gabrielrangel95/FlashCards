@@ -8,6 +8,8 @@ export const Types = {
   CREATE_DECK_REQUEST: 'decks/CREATE_DECK_REQUEST',
   CREATE_DECK_SUCCESS: 'decks/CREATE_DECK_SUCCESS',
   CREATE_DECK_FAILURE: 'decks/CREATE_DECK_FAILURE',
+  OPEN_MODAL: 'decks/OPEN_MODAL',
+  CLOSE_MODAL: 'decks/CLOSE_MODAL'
 };
 
 const initialState = {
@@ -15,6 +17,7 @@ const initialState = {
   loading: false,
   error: null,
   selected: null,
+  createModalVisible: false,
 };
 
 export default function decks(state = initialState, action) {
@@ -38,6 +41,11 @@ export default function decks(state = initialState, action) {
       return { ...state, loading: false, error: false };
     case Types.CREATE_DECK_FAILURE:
       return { ...state, loading: false, error: true };
+    case Types.OPEN_MODAL:
+      return { ...state, createModalVisible: true };
+    case Types.CLOSE_MODAL:
+      return { ...state, createModalVisible: false };
+
     default:
       return state;
   }
@@ -99,5 +107,13 @@ export const Creators = {
     payload: {
       error,
     },
+  }),
+
+  openModal: () => ({
+    type: Types.OPEN_MODAL,
+  }),
+
+  closeModal: () => ({
+    type: Types.CLOSE_MODAL,
   }),
 };

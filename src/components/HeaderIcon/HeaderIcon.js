@@ -11,7 +11,7 @@ import { colors } from '../../styles';
 class HeaderIcon extends Component {
   render() {
     return (
-      <IconContainer>
+      <IconContainer onPress={() => this.props.openModal()}>
         <MaterialIcons name="library-add" size={20} color={colors.secundary}/>
       </IconContainer>
     );

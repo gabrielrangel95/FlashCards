@@ -21,7 +21,6 @@ const initialState = {
 };
 
 export default function decks(state = initialState, action) {
-  console.log(action)
   switch (action.type) {
     case Types.GET_DECKS_REQUEST:
       return { ...state, loading: true };

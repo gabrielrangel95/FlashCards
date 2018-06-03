@@ -59,6 +59,7 @@ export function* selectDeck(action) {
 }
 
 export function* createDeck(action) {
+  console.log(action);
   try {
     const { title } = action.payload
     const value = yield AsyncStorage.getItem('@FlashCards:CardsList');

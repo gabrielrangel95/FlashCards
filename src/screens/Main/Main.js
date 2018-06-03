@@ -29,7 +29,6 @@ class Main extends Component {
   }
 
   async componentDidMount(){
-    console.log(this.props)
     await this.props.getDecksRequest()
   }
 

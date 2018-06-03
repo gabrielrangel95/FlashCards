@@ -5,6 +5,9 @@ import {
 } from './MainStyle';
 
 class Main extends Component {
+  static navigationOptions = {
+    title: 'Flash Cards',
+  };
   render() {
     return (
       <Container>

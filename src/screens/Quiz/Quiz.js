@@ -26,10 +26,10 @@ class Quiz extends Component {
   }
 
 
-  handleCorrectPressed = () => {
+  handleCorrectPressed = async() => {
     if (this.verifyAnswerShowed()) {
       const { score, progress, questions } = this.props.quiz;
-      this.props.setQuizScore(score + 1);
+      await this.props.setQuizScore(score + 1);
       this.goToNextQuestion()
     }
   }
@@ -40,17 +40,18 @@ class Quiz extends Component {
     }
   }
 
-  goToNextQuestion = () => {
+  goToNextQuestion = async () => {
     const { score, progress, questions } = this.props.quiz;
-    const lastProgress = questions.length;
-    if (progress + 1 !== lastProgress) {
+    const numberOfQuestions = questions.length;
+
+    if (progress + 1 !== numberOfQuestions) {
       this.props.setQuizCurrentQuestion(questions[progress + 1]);
       this.props.setQuizProgress(progress + 1);
     } else {
-      var finalScore = (score / lastProgress) * 100;
+      var finalScore = (score / numberOfQuestions) * 100;
       finalScore = finalScore.toFixed(2);
       console.log(finalScore);
-      this.setState({ finalScore })
+      await this.setState({ finalScore })
     }
 
   }

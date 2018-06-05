@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import { Alert } from 'react-native';
+
+//redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Creators as QuizActions } from '../../redux/ducks/Quiz'
+import { Creators as DecksActions} from '../../redux/ducks/Decks'
+
+//ui
 import { FontAwesome } from '@expo/vector-icons';
 import { colors } from '../../styles'
 import { Button } from '../../components';
@@ -21,11 +26,15 @@ import {
 import { clearNotifications } from '../../services/notification';
 
 class Quiz extends Component {
+  static navigationOptions = {
+    title: 'Quiz'
+  };
+
+
   state = {
     lasAnswerShowed: null,
     finalScore: null
   }
-
 
   handleCorrectPressed = async() => {
     if (this.verifyAnswerShowed()) {
@@ -73,6 +82,15 @@ class Quiz extends Component {
     }
   }
 
+  handleRestartQuiz = async() => {
+    const { selected } = this.props.decks;
+    //setup quiz
+    await this.props.restarQuiz()
+    await this.props.setQuizQuestions(selected.questions);
+    await this.props.setQuizCurrentQuestion(selected.questions[0]);
+    await this.setState({ lasAnswerShowed: null, finalScore: null });
+  }
+
 
   render() {
     const { questions, score, progress, currentQuestion, showAnswer } = this.props.quiz
@@ -87,6 +105,9 @@ class Quiz extends Component {
           <TextScore>Your Score: {this.state.finalScore}%</TextScore>
           <FinishButtonView>
             <Button text="Finish" onPress={()=> goBack()}/>
+          </FinishButtonView>
+          <FinishButtonView>
+            <Button secondary text="Restart Quiz" onPress={()=> this.handleRestartQuiz()}/>
           </FinishButtonView>
         </Container>
       )
@@ -123,10 +144,15 @@ class Quiz extends Component {
 
 const mapStateToProps = state => ({
   quiz: state.quiz,
+  decks: state.decks,
 });
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(QuizActions, dispatch);
+const mapDispatchToProps = (dispatch) => {
+  const boundDecksCreators = bindActionCreators(DecksActions, dispatch);
+  const boundQuizCreators = bindActionCreators(QuizActions, dispatch)
+  const allActionProps = { ...boundDecksCreators, ...boundQuizCreators, dispatch };
+  return allActionProps;
+};
 
 const QuizConnect = connect(mapStateToProps, mapDispatchToProps)(Quiz);
 export { QuizConnect as Quiz };

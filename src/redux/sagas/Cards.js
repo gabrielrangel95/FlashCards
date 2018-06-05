@@ -23,7 +23,8 @@ export function* addCard(action) {
     });
     yield AsyncStorage.setItem('@FlashCards:CardsList', JSON.stringify(decks));
     yield put(CardsActions.addCardSuccess());
-    yield put(DecksActions.selectDeckRequest(currentDeck))
+    yield put(DecksActions.selectDeckRequest(currentDeck)); //update current deck
+    yield put(DecksActions.getDecksRequest()); //update the list of decks
 
   } catch (error) {
     yield put(CardsActions.addCardFailure(error))

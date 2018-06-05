@@ -23,19 +23,13 @@ async function notificationsConfig() {
   const lastView = null;
   if(lastView === null){
     const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS)
-    console.log(status);
     if (status === 'granted') {
-      console.log('autorizado')
       Notifications.cancelAllScheduledNotificationsAsync()
-
       let tomorrow = dayjs().add(1, 'day');
-
       const scheduleOptions = {
-        time: t,
-        repeat: 'minute',
+        time: tomorrow,
+        repeat: 'day',
       }
-
-
       Notifications.scheduleLocalNotificationAsync(
         notificationObject,
         scheduleOptions

@@ -3,7 +3,7 @@
 
 This is a project developed with React Native and Expo for Android and IOS.
 
-|      Plataform    |       Device             |        Teste        | 
+|      Plataform    |       Tested             |        Device       | 
 |:-----------------:|:------------------------:|:-------------------:|
 | Android           |                          | Emulator            |
 | Android           |                          | Device              |

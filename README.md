@@ -7,8 +7,8 @@ This is a project developed with React Native and Expo for Android and IOS.
 |:-----------------:|:------------------------:|:-------------------:|
 | Android           |                          | Emulator            |
 | Android           |                          | Device              |
-| iOS               | :ballot_box_with_check:  | Emulator (Iphone X) |  
-| iOS               | :ballot_box_with_check:  | Device              |                 
+| iOS               | :ballot_box_with_check:  | Emulator (IPhone X) |  
+| iOS               | :ballot_box_with_check:  | Device (IPhone 7)   |                 
 
 
 ## Instructions:

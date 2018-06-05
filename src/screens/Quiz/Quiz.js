@@ -23,7 +23,7 @@ import {
   TextAswer,
   FinishButtonView
 } from './QuizStyle'
-import { clearNotifications } from '../../services/notification';
+import { clearNotifications, notificationsConfig } from '../../services/notification';
 
 class Quiz extends Component {
   static navigationOptions = {
@@ -62,9 +62,14 @@ class Quiz extends Component {
       finalScore = finalScore.toFixed(2);
       console.log(finalScore);
       await this.setState({ finalScore })
-      clearNotifications()
+      this.configNotifications();
     }
 
+  }
+
+  configNotifications = () => {
+    clearNotifications();
+    notificationsConfig();
   }
 
   showQuiz = (progress) => {
@@ -83,6 +88,7 @@ class Quiz extends Component {
   }
 
   handleRestartQuiz = async() => {
+    this.configNotifications();
     const { selected } = this.props.decks;
     //setup quiz
     await this.props.restarQuiz()

@@ -26,6 +26,20 @@ class Main extends Component {
     await this.props.getDecksRequest()
   }
 
+  async componentWillReceiveProps(nextProps){
+
+    const currentDataSize = this.props.decks.data.length;
+    const nextDataSize = nextProps.decks.data.length;
+
+
+    if(currentDataSize > 0 && nextDataSize > currentDataSize){
+      const { data } = nextProps.decks;
+
+      await this.props.selectDeckRequest(data[(nextDataSize - 1)]);
+      this.props.navigation.navigate('Deck')
+    }
+  }
+
   handleDeckPress = (item) => {
     this.props.selectDeckRequest(item);
     this.props.navigation.navigate('Deck')
